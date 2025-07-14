@@ -1,4 +1,4 @@
-import { AnimatedBall } from "./AnimatedBall";
+import { AnimatedBall } from "./animatedBall";
 import { randomIntInRange } from "./util";
 
 export class BallFactory {
@@ -13,7 +13,9 @@ export class BallFactory {
   constructor(
     private ctx: CanvasRenderingContext2D,
     private minRadius = 8,
-    private maxRadius = 20
+    private maxRadius = 20,
+    private gravity = 0.2,
+    private friction = 0.98
   ) {}
 
   createRandomBall(): AnimatedBall {
@@ -33,7 +35,9 @@ export class BallFactory {
       color,
       this.minRadius,
       this.maxRadius,
-      this.ctx
+      this.ctx,
+      this.gravity,
+      this.friction
     );
   }
 }

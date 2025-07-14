@@ -6,7 +6,7 @@ const ctx = canvas.getContext("2d")!;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-canvas.style.backgroundColor = "#000";
+// canvas.style.backgroundColor = "#000";
 
 const ballFactory = new BallFactory(ctx);
 
@@ -14,7 +14,7 @@ let balls: ReturnType<BallFactory["createRandomBall"]>[] = [];
 
 function init() {
   balls = [];
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 500; i++) {
     balls.push(ballFactory.createRandomBall());
   }
 }

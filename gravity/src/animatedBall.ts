@@ -10,7 +10,9 @@ export class AnimatedBall implements Ball {
     public color: string,
     public minRadius: number,
     public maxRadius: number,
-    private ctx: CanvasRenderingContext2D
+    private ctx: CanvasRenderingContext2D,
+    private gravity: number,
+    private friction: number
   ) {}
 
   draw(): void {
@@ -23,26 +25,23 @@ export class AnimatedBall implements Ball {
   }
 
   update(): void {
-    // if (this.x + this.radius > innerWidth || this.x - this.radius < 0) this.dx *= -1;
-    // if (this.y + this.radius > innerHeight || this.y - this.radius < 0) this.dy *= -1;
+    if (this.y + this.radius + this.dy >= this.ctx.canvas.height) {
+      this.dy = -this.dy;
+      this.dy = this.dy * this.friction;
+      this.dx = this.dx * this.friction;
+    } else {
+      this.dy += this.gravity; // velocity keeps on increasing simulating gravitational effect
+    }
 
-    // this.x += this.dx;
-    // this.y += this.dy;
+    if (
+      this.x + this.radius >= this.ctx.canvas.width ||
+      this.x - this.radius <= 0
+    )
+      this.dx = -this.dx * this.friction;
 
-    // if (
-    //   mouse.x !== undefined &&
-    //   mouse.y !== undefined &&
-    //   Math.abs(mouse.x - this.x) < 50 &&
-    //   Math.abs(mouse.y - this.y) < 50 &&
-    //   this.radius < 40
-    // ) {
-    //   this.radius += 1;
-    // } else if (this.radius > this.minRadius) {
-    //   this.radius -= 1;
-    // }
-
-    // if(this.y + this.radius + this.dy >= this.ctx.canvas.height)
+    this.x += this.dx;
     this.y += this.dy;
+
     this.draw();
   }
 }
